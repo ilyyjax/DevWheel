@@ -1,23 +1,42 @@
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: radial-gradient(circle at center, #1b2735, #090a0f);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* Animated background stars */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background: radial-gradient(white, transparent 70%) 0 0 / 50px 50px,
+              radial-gradient(white, transparent 70%) 25px 25px / 50px 50px;
+  animation: moveStars 60s linear infinite;
+  opacity: 0.2;
+}
+@keyframes moveStars {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-100px, -100px); }
 }
 
 header {
   padding: 20px;
   text-align: center;
+  z-index: 1;
 }
 
 h1 {
   font-size: 2.5rem;
   letter-spacing: 2px;
   animation: fadeInDown 1s ease;
+  text-shadow: 2px 2px 4px black;
 }
 
 .wheel-container {
@@ -29,7 +48,8 @@ h1 {
 
 canvas {
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border: 6px solid black;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
 }
 
 .spinner {
@@ -44,6 +64,17 @@ canvas {
   border-right: 10px solid transparent;
   border-bottom: 30px solid #fff;
   z-index: 2;
+  filter: drop-shadow(0 0 4px black);
+}
+
+/* Countdown styling */
+#countdown {
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 3px 3px 8px black;
+  margin-bottom: 10px;
+  height: 60px;
+  animation: fadeIn 1s ease;
 }
 
 #overlay {
@@ -61,6 +92,7 @@ canvas {
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.5s ease;
+  text-shadow: 4px 4px 10px black;
 }
 
 #overlay.show {
@@ -72,4 +104,8 @@ canvas {
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
